@@ -30,9 +30,9 @@ int solve(vector<int> &nums, int l, int r)
 
     merged = dir_max_sum + esq_max_sum;
 
-    if (esq > dir && esq > merged)
+    if (esq >= dir && esq >= merged)
         return esq;
-    else if (dir > esq && dir > merged)
+    else if (dir >= esq && dir >= merged)
         return dir;
     else
         return merged;
