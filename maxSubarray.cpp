@@ -47,7 +47,6 @@ int maxSubArray(vector<int> &nums)
 
 int main()
 {
-    //still not working on following input 
     vector<int> nums = {-1,-1,-2,-2};
     int res = maxSubArray(nums);
 
