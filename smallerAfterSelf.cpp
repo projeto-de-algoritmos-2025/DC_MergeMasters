@@ -1,59 +1,44 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void merge(vector<vector<int>> &numbers, vector<int>& res, int l, int m, int r)
+void merge(vector<pair<int, int>> &numbers, vector<int> &res, int l, int m, int r)
 {
     int i, j, k;
-    int n1 = m - l + 1;
-    int n2 = r - m;
-    int inv = 0;
-    vector<vector<int>> lv(n1), rv(n2);
+    vector<pair<int, int>> temp(r - l + 1);
 
-    for (i = 0; i < n1; i++)
-        lv[i] = numbers[l + i];
-    for (j = 0; j < n2; j++)
-        rv[j] = numbers[m + 1 + j];
-
-    i = n1-1;
-    j = n2-1;
-    while(i >= 0 && j >= 0){
-        if(lv[i][0] > rv[j][0]){
-            res[lv[i][1]] += (j+1);
-            i--;
-        }
-        else{
-            j--;
-        }
-    }
-
-    i = 0;
-    j = 0;
-    k = l;
-    while (i < n1 && j < n2)
+    i = l;
+    j = m+1;
+    k = 0;
+    while (i <= m && j <= r)
     {
-        if (lv[i] <= rv[j])
+        if (numbers[i].first <= numbers[j].first)
         {
-            numbers[k] = lv[i++];
+            temp[k] = numbers[j++];
         }
         else
         {
-            numbers[k] = rv[j++];
+            res[numbers[i].second] += r - j + 1;
+            temp[k] = numbers[i++];
         }
         k++;
     }
 
-    while (i < n1)
+    while (i <= m)
     {
-        numbers[k++] = lv[i++];
+        temp[k++] = numbers[i++];
     }
 
-    while (j < n2)
+    while (j <= r)
     {
-        numbers[k++] = rv[j++];
+        temp[k++] = numbers[j++];
+    }
+
+    for(int i = l; i <= r; i++){
+        numbers[i] = temp[i-l];
     }
 }
 
-void solve(vector<vector<int>> &numbers, vector<int>& res, int l, int r)
+void solve(vector<pair<int, int>> &numbers, vector<int> &res, int l, int r)
 {
     if (l < r)
     {
@@ -68,18 +53,19 @@ void solve(vector<vector<int>> &numbers, vector<int>& res, int l, int r)
 vector<int> countSmaller(vector<int> &nums)
 {
     vector<int> res(nums.size(), 0);
-    vector<vector<int>> numbers(nums.size(), vector<int>(2));
-    for(int i = 0; i < nums.size(); i++){
-        numbers[i] = {nums[i], i};
+    vector<pair<int, int>> numbers(nums.size());
+    for (int i = 0; i < nums.size(); i++)
+    {
+        numbers[i] = make_pair(nums[i], i);
     }
-    solve(numbers, res, 0, nums.size()-1);
+    solve(numbers, res, 0, nums.size() - 1);
     return res;
 }
 
 int main()
 {
 
-    vector<int> nums = {4, 3, 5};
+    vector<int> nums = {5, 2, 6, 1};
     vector<int> res = countSmaller(nums);
 
     for (auto &e : nums)
