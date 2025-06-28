@@ -46,5 +46,5 @@ Os códigos foram feitos para solucionar os problemas na plataforma Leetcode, po
 5. Submeta o código;
 6. Receba o resultado do teste do código sob as entradas do problema.
 
-## Entregas 
-[Entrega - Divisão e Conquista (Acessar o vídeo)]()
+## Entrega
+[Entrega - Divisão e Conquista (Acessar o vídeo)](https://youtu.be/BsgE_ff9wXc)
